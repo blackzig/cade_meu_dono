@@ -16,40 +16,12 @@ public class Teste {
 
 	public static void main(String[] args) {
 		EntityManager em = Persistence.createEntityManagerFactory("cade_meu_dono").createEntityManager();
-		opcoesUsuario(em, 6);
-		// opcoesAnimal(em, 6);
+		// opcoesUsuario(em, 6,1L);
+		opcoesAnimal(em, 4, 1L);
 	}
 
-	public static void opcoesAnimal(EntityManager em, Integer acao) {
-		AnimalDAO uDAO = new AnimalDAO(em);
-		Long key = 1L;
-		switch (acao) {
-		case 1:
-			salvarAnimal(uDAO);
-			break;
-		case 2:
-			encontrar(uDAO, key);
-			break;
-		case 3:
-			listar(uDAO);
-			break;
-		case 4:
-			atualizar(uDAO, key);
-			break;
-		case 5:
-			remover(uDAO, key);
-			break;
-		case 6:
-			animalEhDe(uDAO, key, em);
-			break;
-		default:
-			break;
-		}
-	}
-
-	public static void opcoesUsuario(EntityManager em, Integer acao) {
+	public static void opcoesUsuario(EntityManager em, Integer acao, Long key) {
 		UsuarioDAO uDAO = new UsuarioDAO(em);
-		Long key = 1L;
 		switch (acao) {
 		case 1:
 			salvarUsuario(uDAO);
@@ -129,11 +101,39 @@ public class Teste {
 
 	/********************** ANIMAL ***********************/
 
+	public static void opcoesAnimal(EntityManager em, Integer acao, Long key) {
+		AnimalDAO uDAO = new AnimalDAO(em);
+		switch (acao) {
+		case 1:
+			salvarAnimal(uDAO);
+			break;
+		case 2:
+			encontrar(uDAO, key);
+			break;
+		case 3:
+			listar(uDAO);
+			break;
+		case 4:
+			atualizar(uDAO, key);
+			break;
+		case 5:
+			remover(uDAO, key);
+			break;
+		case 6:
+			// Quem tem a anotação mappedBy não funciona para gravar na tabela de
+			// associação, usuario_animal.
+			animalEhDe(uDAO, key, em);
+			break;
+		default:
+			break;
+		}
+	}
+
 	public static void salvarAnimal(AnimalDAO uDAO) {
 		Animal u = new Animal();
 		u.setNome("PET1");
 		u.setGenero("M");
-		u.setStatus(Status.VIVO);
+		//u.setStatus(Status.VIVO);
 		uDAO.save(u);
 		AnimalDAO.commit(uDAO);
 	}
@@ -153,6 +153,7 @@ public class Teste {
 	public static void atualizar(AnimalDAO uDAO, Long key) {
 		Animal u = encontrar(uDAO, key);
 		u.setNome("Peludinho");
+		u.setStatus(Status.DESAPARECIDO);
 		uDAO.update(u);
 		AnimalDAO.commit(uDAO);
 	}
@@ -167,8 +168,6 @@ public class Teste {
 	}
 
 	public static void animalEhDe(AnimalDAO uDAO, Long key, EntityManager em) {
-		// Quem tem a anotação mappedBy não funciona para gravar na tabela de
-		// associação.
 		UsuarioDAO usuDAO = new UsuarioDAO(em);
 		Usuario us = encontrar(usuDAO, 1L);
 		List<Usuario> lista = new ArrayList<>();

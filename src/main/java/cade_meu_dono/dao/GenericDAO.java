@@ -18,9 +18,6 @@ public class GenericDAO<T, K> {
 		clazz = theType;
 	}
 
-	public T getT() {
-		return (T) clazz;
-	}
 
 	public void save(T entity) {
 		em.persist(entity);

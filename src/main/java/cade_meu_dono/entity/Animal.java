@@ -17,6 +17,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -43,7 +44,7 @@ public class Animal {
 	private Date nascimento;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "ani_status", nullable = false, columnDefinition = "varchar(255) default 'VIVO'")
+	@Column(name = "ani_status", nullable = true, columnDefinition = "enum('VIVO', 'MORTO', 'DESAPARECIDO', 'ENCONTRADO', 'SERA_DE_ALGUEM')")
 	private Status status;
 
 	//@Formula(value = "YEAR(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(ani_nascimento))) AS ani_idade")
