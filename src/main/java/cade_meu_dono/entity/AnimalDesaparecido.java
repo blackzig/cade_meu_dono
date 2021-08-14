@@ -31,9 +31,9 @@ public class AnimalDesaparecido {
 	private Long id;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "ad_status", nullable = true, columnDefinition = "default 'DESAPARECIDO'")
+	@Column(name = "ad_status", nullable = true, columnDefinition = "varchar(255) default 'DESAPARECIDO'")
 	private Status status;
-
+			
 	@Column(name = "ad_desapareceu_em", nullable = false)
 	@CreationTimestamp
 	private Calendar dataCadastro;

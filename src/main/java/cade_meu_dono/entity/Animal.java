@@ -43,11 +43,11 @@ public class Animal {
 	private Date nascimento;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "ani_status", nullable = true, columnDefinition = "default 'VIVO'")
+	@Column(name = "ani_status", nullable = false, columnDefinition = "varchar(255) default 'VIVO'")
 	private Status status;
 
-	@Formula(value = "YEAR(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(ani_nascimento))) AS ani_idade")
-	private int idade;
+	//@Formula(value = "YEAR(FROM_DAYS(TO_DAYS(NOW())-TO_DAYS(ani_nascimento))) AS ani_idade")
+	//private int idade;
 
 	@Column(name = "ani_cadastrado")
 	@CreationTimestamp
@@ -105,7 +105,7 @@ public class Animal {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-
+/*
 	public int getIdade() {
 		return idade;
 	}
@@ -113,7 +113,7 @@ public class Animal {
 	public void setIdade(int idade) {
 		this.idade = idade;
 	}
-
+*/
 	public Calendar getDataCadastro() {
 		return dataCadastro;
 	}

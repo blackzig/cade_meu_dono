@@ -39,7 +39,7 @@ public class AnimalDesaparecidoNL {
 	private Calendar dataAviso;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "adnl_status", nullable = true, columnDefinition = "default 'SERA_DE_ALGUEM'")
+	@Column(name = "adnl_status", nullable = true, columnDefinition = "varchar(255) default 'SERA_DE_ALGUEM'")
 	private Status status;
 
 	@Lob
